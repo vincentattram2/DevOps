@@ -7,7 +7,7 @@ pipeline {
     }
 */
     environment {
-        registry = "vincentattram2/cicd"
+        registry = "vincentattram/vat-repo"
         registryCredential = 'dockerhub'
     }
 
