@@ -13,7 +13,7 @@ pipeline {
 
     stages{
 
-        stage('BUILD'){
+        stage('BUILD-vincent'){
             steps {
                 sh 'mvn clean install -DskipTests'
             }
@@ -72,7 +72,7 @@ pipeline {
             }
         }
 
-        stage('Build App Image') {
+        stage('Build App Image-vincent') {
           steps {
             script {
               dockerImage = docker.build registry + ":V$BUILD_NUMBER"
@@ -80,7 +80,7 @@ pipeline {
           }
         }
 
-        stage('Upload Image'){
+        stage('Upload Image-vincent'){
           steps{
             script {
               docker.withRegistry('', registryCredential) {
@@ -97,7 +97,7 @@ pipeline {
           }
         }
 
-        stage('Kubernetes Deploy') {
+        stage('Kubernetes Deploy-vincent') {
           agent {label 'KOPS'}
             steps {
               sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --namespace prod"
